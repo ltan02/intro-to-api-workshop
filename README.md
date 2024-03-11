@@ -5,6 +5,7 @@ Welcome to the "Introduction to API Development with TypeScript" workshop! This 
 ## Host Information
 
 **Name:** Lance Tan
+
 **Contact Information:** [https://www.linkedin.com/in/lancetan02/](https://www.linkedin.com/in/lancetan02/)
 
 ## Learning Outcomes
