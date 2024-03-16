@@ -30,15 +30,33 @@ export default function RandomQuote() {
 
     const saveQuote = async () => {
         if (!saved) {
-            toast({
-                title: "Implement Me!",
-                description: "Failed to save quote",
-            });
+            try {
+                setIsLoading(true);
+                await axios.post<Quote>("http://localhost:8000/quotes", {
+                    id: quote?.id,
+                    content: quote?.content,
+                    author: quote?.author,
+                });
+            } catch (error) {
+                toast({
+                    title: "Error!",
+                    description: "Failed to save quote",
+                });
+            } finally {
+                setIsLoading(false);
+            }
         } else {
-            toast({
-                title: "Implement Me!",
-                description: "Failed to delete quote",
-            });
+            try {
+                setIsLoading(true);
+                await axios.delete(`http://localhost:8000/quotes/${quote?.id}`);
+            } catch (error) {
+                toast({
+                    title: "Error!",
+                    description: "Failed to unsave quote",
+                });
+            } finally {
+                setIsLoading(false);
+            }
         }
 
         setSaved((prev) => !prev);

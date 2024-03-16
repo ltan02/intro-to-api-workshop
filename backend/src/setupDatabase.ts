@@ -12,8 +12,8 @@ const db = new Database(dbPath, (err) => {
 
     const createQuotesTableSql = `
     CREATE TABLE IF NOT EXISTS Quote (
-        id INTEGER PRIMARY KEY,
-        text TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        content TEXT NOT NULL,
         author TEXT NOT NULL
     );`;
 

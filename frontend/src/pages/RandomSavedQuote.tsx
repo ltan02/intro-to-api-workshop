@@ -15,23 +15,52 @@ export default function RandomSavedQuote() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const fetchRandomSavedQuote = async () => {
-        toast({
-            title: "Implement Me!",
-            description: "Failed to fetch random saved quote",
-        });
+        try {
+            setIsLoading(true);
+            const response = await axios.get<Quote>("http://localhost:8000/quotes/random");
+
+            if (response.status === 200) {
+                setQuote(response.data);
+            }
+        } catch (error) {
+            toast({
+                title: "Error!",
+                description: "Failed to fetch random quote",
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const saveQuote = async () => {
         if (!saved) {
-            toast({
-                title: "Implement Me!",
-                description: "Failed to save quote",
-            });
+            try {
+                setIsLoading(true);
+                await axios.post<Quote>("http://localhost:8000/quotes", {
+                    id: quote?.id,
+                    content: quote?.content,
+                    author: quote?.author,
+                });
+            } catch (error) {
+                toast({
+                    title: "Error!",
+                    description: "Failed to save quote",
+                });
+            } finally {
+                setIsLoading(false);
+            }
         } else {
-            toast({
-                title: "Implement Me!",
-                description: "Failed to delete quote",
-            });
+            try {
+                setIsLoading(true);
+                await axios.delete(`http://localhost:8000/quotes/${quote?.id}`);
+            } catch (error) {
+                toast({
+                    title: "Error!",
+                    description: "Failed to unsave quote",
+                });
+            } finally {
+                setIsLoading(false);
+            }
         }
 
         setSaved((prev) => !prev);
@@ -61,7 +90,7 @@ export default function RandomSavedQuote() {
                     </>
                 ) : (
                     <>
-                        <h1 className="text-4xl text-center">{quote?.id}</h1>
+                        <h1 className="text-4xl text-center">{quote?.content}</h1>
                         <h2 className="text-xl italic">{quote?.author}</h2>
                         <button className="absolute bottom-4 right-4 p-2" onClick={saveQuote}>
                             {saved ? (
