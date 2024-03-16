@@ -61,7 +61,7 @@ export default function RandomSavedQuote() {
                     </>
                 ) : (
                     <>
-                        <h1 className="text-4xl text-center">{quote?.id}</h1>
+                        <h1 className="text-4xl text-center">{quote?.content}</h1>
                         <h2 className="text-xl italic">{quote?.author}</h2>
                         <button className="absolute bottom-4 right-4 p-2" onClick={saveQuote}>
                             {saved ? (

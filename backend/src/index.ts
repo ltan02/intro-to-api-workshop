@@ -1,8 +1,10 @@
-import express from "express";
+import express, { Request, Response } from "express";
+import cors from "cors";
 import { Database } from "sqlite3";
 import path from "path";
 
 const app = express();
+app.use(cors());
 const PORT = 8000;
 
 // Initialize database connection
@@ -16,19 +18,19 @@ const db = new Database(dbPath, (err) => {
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
     res.send("Hello World from the backend!");
 });
 
-app.post("/quotes", (req, res) => {
+app.post("/quotes", (req: Request, res: Response) => {
     res.status(501).send("Not implemented");
 });
 
-app.get("/quotes/random", (req, res) => {
+app.get("/quotes/random", (req: Request, res: Response) => {
     res.status(501).send("Not implemented");
 });
 
-app.delete("/quotes/:id", (req, res) => {
+app.delete("/quotes/:id", (req: Request, res: Response) => {
     res.status(501).send("Not implemented");
 });
 
